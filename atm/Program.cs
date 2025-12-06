@@ -2,7 +2,7 @@
 
 Console.WriteLine("Atmye hoş geldiniz");
 
-int bakiye = 25000;
+double bakiye = 25000;
 string sifre = "ab18";
 int hak = 3;
 
@@ -32,6 +32,7 @@ switch (islemTur)
                 Console.WriteLine("4- Eğitim Ödemeleri");
                 Console.WriteLine("5- Ödemeler");
                 Console.WriteLine("6- Bilgi Güncelleme");
+                Console.WriteLine("7- Krediler");
                 int islemsecim = Convert.ToInt32(Console.ReadLine());
                 switch (islemsecim)
                 {
@@ -259,6 +260,52 @@ switch (islemTur)
                             Console.WriteLine("Hatalı şifre girdiniz tekrardan giriş yapınız");
                             goto login;
                         }
+                        break;
+                    case 7:
+                        Console.WriteLine("Kredi sayfasına hoşgeldiniz");
+                        Console.WriteLine("Çekceğiniz kredi miktarını giriniz");
+                        int kredimiktar = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Vade giriniz:");
+                        int vade = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Statünüz:");
+                        Console.WriteLine("1-Öğrenci");
+                        Console.WriteLine("2-Çalışan:");
+                        Console.WriteLine("3-Emekli:");
+
+                        int statu = Convert.ToInt32(Console.ReadLine());
+
+                        switch (statu)
+                        {
+                            case 1:
+                                Console.WriteLine("Öğrenciler için kredi faizi indirimlidir.");
+                                double ogrencikredi = kredimiktar + kredimiktar * 0.7;
+                                Console.WriteLine("Geri ödemeniz: "+ogrencikredi);
+                                bakiye += ogrencikredi;
+                                double taksitogrenci = ogrencikredi / vade;
+                                Console.WriteLine("Taksit tutarınız: "+ taksitogrenci);
+                                break;
+                            case 2:
+                                double calisankredi = kredimiktar + kredimiktar;
+                                Console.WriteLine("Geri ödemeniz: " + calisankredi);
+                                bakiye += calisankredi;
+
+                                double taksitcalisan = calisankredi / vade;
+                                Console.WriteLine("Taksit tutarınız: " + taksitcalisan);
+
+                                break;
+                            case 3:
+                                double emeklikredi = kredimiktar + kredimiktar*0.6;
+                                Console.WriteLine("Geri ödemeniz: " + emeklikredi);
+                                bakiye += emeklikredi;
+
+                                double taksitemekli = emeklikredi / vade;
+                                Console.WriteLine("Taksit tutarınız: " +taksitemekli );
+
+                                break;
+                        }
+
+
                         break;
                     default:
                         Console.WriteLine("Hatalı seçim  yeniden deneyiniz.");

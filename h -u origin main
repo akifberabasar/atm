@@ -1,0 +1,11 @@
+[33mcommit 738d47d841d5934f7305afcd8d5e8032926e0bd3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Your Name <you@example.com>
+Date:   Sun Dec 7 00:59:04 2025 +0300
+
+    Proje dosyası ekle.
+
+[33mcommit d1d066def8207103483e5cacccd8ee77a0c666ee[m
+Author: Your Name <you@example.com>
+Date:   Sun Dec 7 00:58:58 2025 +0300
+
+    .gitattributes ve .gitignore ekleyin.
