@@ -41,6 +41,8 @@ switch (islemTur)
                         int yatanpara = Convert.ToInt32(Console.ReadLine());
                         bakiye += yatanpara;
                         Console.WriteLine("Toplam paranız: " + bakiye);
+                        goto islem;
+
                         break;
                     case 2:
                         Console.WriteLine("Çekeceğiniz para miktarı");
@@ -66,6 +68,8 @@ switch (islemTur)
                         {
                             bakiye -= cekilenpara;
                             Console.WriteLine("Toplam paranız: " + bakiye);
+                            goto islem;
+
                         }
                         break;
                     case 3:
@@ -74,9 +78,10 @@ switch (islemTur)
                         Console.WriteLine("Göndereceğiniz miktarı giriniz");
                         int miktar = Convert.ToInt32(Console.ReadLine());
 
-                        Console.WriteLine("TR"+iban+" hesabına" + miktar+ "tl gönderilmiştir.");
+                        Console.WriteLine("TR "+iban+" hesabına " + miktar+ "tl gönderilmiştir.");
                         bakiye-=miktar;
 
+                        goto islem;
 
                         break;
                     case 4:
@@ -92,23 +97,29 @@ switch (islemTur)
                                 Console.WriteLine("İlkokul sınav ücreti hesabınızdan tahsil edilecekir.");
                                 bakiye -= 100;
                                 Console.WriteLine(bakiye);
+                        goto islem;
 
                                 break;
                             case 2:
                                 Console.WriteLine("Ortaokul sınav ücreti hesabınızdan tahsil edilecekir.");
                                 bakiye -= 200;
                                 Console.WriteLine(bakiye);
+                                goto islem;
+
                                 break;
                             case 3:
                                 Console.WriteLine("Lise sınav ücreti hesabınızdan tahsil edilecekir.");
                                 bakiye -= 300;
                                 Console.WriteLine(bakiye);
+                                goto islem;
 
                                 break;
                             case 4:
                                 Console.WriteLine("Üniveresite sınav ücreti hesabınızdan tahsil edilecekir.");
                                 bakiye -= 400;
                                 Console.WriteLine(bakiye);
+                                goto islem;
+
                                 break;
                         }
                         goto islem;
@@ -118,7 +129,6 @@ switch (islemTur)
                         Console.WriteLine("Yapacağınız ödemeyi seçiniz");
                         Console.WriteLine("1- Fatura");
                         Console.WriteLine("2- Vergi");
-                        Console.WriteLine("3- Ceza");
                         int odeme = Convert.ToInt32(Console.ReadLine());
 
                         switch (odeme)
@@ -133,22 +143,23 @@ switch (islemTur)
                                 {
                                     case 1:
                                         int elektrik = 3;
-                                        int elektrikfatura;
+                                        int elektrikfatura =0;
+                                        Console.WriteLine("100 kj üzerinde aşırı tüketimden ceza kesilecektir");
                                         Console.WriteLine("Tüketim miktarını giriniz");
-                                        Console.WriteLine("100 üzerinde aşırı tüketimden ceza kesilecektir");
                                         int enerji = Convert.ToInt32(Console.ReadLine());
                                         if (enerji < 100)
                                         {
                                             elektrikfatura = enerji * elektrik;
+                                            Console.WriteLine("Fatura tutarı:" + elektrikfatura);
                                         }
-                                        else
+                                        else if (enerji > 100)
                                         {
                                             elektrikfatura = enerji * elektrik + 350;
-
+                                            Console.WriteLine("Fatura tutarı:" + elektrikfatura);
                                         }
                                         bakiye -= elektrikfatura;
+                                        Console.WriteLine(bakiye);
                                         goto islem;
-
                                         break;
                                     case 2:
                                     telefon:
@@ -159,6 +170,7 @@ switch (islemTur)
                                         {
                                             Console.WriteLine("Telefon numarası geçerlidir");
                                             bakiye -= telfatura;
+                                            Console.WriteLine("Telefon faturanız ödenmiştir: "+bakiye);
                                             goto islem;
 
                                         }
@@ -178,15 +190,18 @@ switch (islemTur)
                                             toplamucret = gun * gunlukucret;
                                             Console.WriteLine("Otopark ücretiniz: " + toplamucret);
                                             bakiye -= gun;
+                                            Console.WriteLine("Ücret ödenmiştir:" + bakiye);
+
                                             goto islem;
 
 
                                         }
                                         else
                                         {
-                                            toplamucret *= gun * (gunlukucret / 10);
+                                            toplamucret += gun * (gunlukucret / 10);
                                             Console.WriteLine("İndirimli ücretiniz: " + toplamucret);
                                             bakiye -= gun;
+                                            Console.WriteLine("Ücret ödenmiştir:" +bakiye);
                                             goto islem;
 
                                         }
@@ -208,15 +223,45 @@ switch (islemTur)
                                         if (araba > 1000)
                                         {
                                             Console.WriteLine("Aracınız yüksek vergi segmentindedir");
-                                            arabavergi += araba / 4;
+                                            arabavergi += araba /2;
+                                            Console.WriteLine("Vergi tutarı: " + arabavergi);
+                                            if(arabavergi > bakiye)
+                                            {
+                                                Console.WriteLine("Bakiyenizi aşan tutar işlem yapılamıyor.");
+                                                Console.WriteLine("Ana menü için 9'a basınız");
+                                                Console.WriteLine("Krediler için 7'ye basınız");
+                                                Console.WriteLine("Çıkış için 0'a basınız");
+                                                int cikis = Convert.ToInt32(Console.ReadLine());
+
+                                                if (cikis == 9)
+                                                {
+                                                    goto islem;
+                                                }
+                                                else if (cikis == 7)
+                                                {
+                                                    goto kredi;
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                bakiye -= arabavergi;
+
+                                            }
                                         }
                                         else
                                         {
                                             Console.WriteLine("Aracınız düşük vergi segmentindedir");
 
-                                            arabavergi *= araba / 10;
-                                        }
+                                            arabavergi += araba / 10;
+                                            Console.WriteLine("Vergi tutarı: " + arabavergi);
                                         bakiye -= arabavergi;
+
+                                        }
+                                        Console.WriteLine("Bakiye:" + bakiye);
                                         break;
                                     case 2:
                                         int evvergi = 0;
@@ -224,7 +269,7 @@ switch (islemTur)
                                         int evfiyat = Convert.ToInt32(Console.ReadLine());
                                         Console.WriteLine("Ev m2 giriniz");
                                         int m2 = Convert.ToInt32(Console.ReadLine());
-                                        if (evfiyat > 1000 && m2 > 100)
+                                        if (evfiyat > 1000)
                                         {
                                             Console.WriteLine("Eviniz yüksek vergi segmentindedir");
                                             evvergi = evfiyat / m2;
@@ -234,6 +279,8 @@ switch (islemTur)
                                             evvergi = evfiyat / m2 / 2;
                                         }
                                         bakiye -= evvergi;
+                                        Console.WriteLine("Vergi tutarı: " +evvergi);
+                                        Console.WriteLine(bakiye);
                                         break;
                                 }
 
@@ -262,6 +309,7 @@ switch (islemTur)
                         }
                         break;
                     case 7:
+                        kredi:
                         Console.WriteLine("Kredi sayfasına hoşgeldiniz");
                         Console.WriteLine("Çekceğiniz kredi miktarını giriniz");
                         int kredimiktar = Convert.ToInt32(Console.ReadLine());
@@ -282,25 +330,35 @@ switch (islemTur)
                                 double ogrencikredi = kredimiktar + kredimiktar * 0.7;
                                 Console.WriteLine("Geri ödemeniz: "+ogrencikredi);
                                 bakiye += ogrencikredi;
+                                Console.WriteLine("Bakiyeniz: " + bakiye);
+
                                 double taksitogrenci = ogrencikredi / vade;
                                 Console.WriteLine("Taksit tutarınız: "+ taksitogrenci);
+                                goto islem;
+
                                 break;
                             case 2:
                                 double calisankredi = kredimiktar + kredimiktar;
                                 Console.WriteLine("Geri ödemeniz: " + calisankredi);
                                 bakiye += calisankredi;
+                                Console.WriteLine("Bakiyeniz: " + bakiye);
 
                                 double taksitcalisan = calisankredi / vade;
                                 Console.WriteLine("Taksit tutarınız: " + taksitcalisan);
+                                goto islem;
+
 
                                 break;
                             case 3:
                                 double emeklikredi = kredimiktar + kredimiktar*0.6;
                                 Console.WriteLine("Geri ödemeniz: " + emeklikredi);
                                 bakiye += emeklikredi;
+                                Console.WriteLine("Bakiyeniz: " +bakiye);
 
                                 double taksitemekli = emeklikredi / vade;
                                 Console.WriteLine("Taksit tutarınız: " +taksitemekli );
+                                goto islem;
+
 
                                 break;
                         }
